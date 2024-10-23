@@ -2,6 +2,7 @@
 This project implements the Simple-AES algorithm.The algorithm flow is shown in the following figure：
 <!-- 算法流程图片 -->
 <img src="https://github.com/kelleay/S-AES/blob/master/images/%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B%E5%9B%BE.png" style="width:700px; height: 800px">
+
 ## Table of Contents
 
 
@@ -67,7 +68,8 @@ Write and debug programs according to S-AES algorithm, provide GUI decryption to
 
 - The decryption result is shown in the following figure:
   <img src="images/二进制解密.png" />
-- Some of the decryption results are shown in the table below：
+- Some of the decryption results are shown in the table below:
+
 | CipherText       | Key              | PlainText        |
 |------------------|------------------|------------------|
 | 1111000011110000 | 1111111100000000 | 1111000011110000 |
@@ -75,6 +77,20 @@ Write and debug programs according to S-AES algorithm, provide GUI decryption to
 | 1111101011101110 | 1111111111111111 | 0101010101010101 |
 | 0000111100001111 | 1111000011110000 | 0011110100110101 |
 | 1111111111111111 | 1111000011110000 | 1010010010011010 |
+
+#### The second Pass
+Considering the "algorithm standard", everyone needs to use the same algorithm flow and transformation unit (replacement box, column confusion matrix, etc.) when writing the program to ensure that the algorithm and the program can run properly on heterogeneous systems or platforms.
+There are two groups of A and B students (select the same key K); Then the program written by the students of group A and B encrypts the plaintext P to obtain the same ciphertext C; Or Group B students receive ciphertext C encrypted by group A program, and use Group B program to decrypt it to get the same P as A.
+
+- The encryption results of Group A students are shown below：
+  <img src="images/交叉测试A.png" />
+- The encryption results of Group B students are shown below：
+  <img src="images/交叉测试B.png" />
+
+The results showed that the students in group A and Group B had the same results
+
+
+
 µùiÀ¦"óTséÎÆm¨/ì
 Æa± sÇE ze.*ÝeË´i¢le
 
