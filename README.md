@@ -1,7 +1,7 @@
 # Simple-AES Algorithm
 This project implements the Simple-AES algorithm.The algorithm flow is shown in the following figure：
 <!-- 算法流程图片 -->
-
+<img src="https://github.com/kelleay/S-AES/blob/master/images/%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B%E5%9B%BE.png" style="width:700px; height: 800px">
 ## Table of Contents
 
 
@@ -48,8 +48,33 @@ The structure of the project is shown below：
 
 ## Report
 The following figure shows the main interface of the client:
+<br><img src="https://github.com/kelleay/S-AES/blob/master/images/%E4%B8%BB%E7%95%8C%E9%9D%A2.png" />
+<br>
 
+### The first pass
+Write and debug programs according to S-AES algorithm, provide GUI decryption to support user interaction. The input can be 16bit data and 16bit key, and the output can be 16bit ciphertext.
+- The encryption result is shown in the following figure:
+  <img src="images/二进制加密.png" />
+- Some of the encryption results are shown in the table below：
 
+| PlainText        | Key              | CipherText       |
+|------------------|------------------|------------------|
+| 1111000011110000 | 1111111100000000 | 0100011000110001 |
+| 1111000011111111 | 1111111100000000 | 0011011000110100 |
+| 1111000011110000 | 1010101010101010 | 0011000100100011 |
+| 0101010101010101 | 1010101010101010 | 1000101010010110 |
+| 0101010101010101 | 1111111111111111 | 1111101011101110 |
+
+- The decryption result is shown in the following figure:
+  <img src="images/二进制解密.png" />
+- Some of the decryption results are shown in the table below：
+| CipherText       | Key              | PlainText        |
+|------------------|------------------|------------------|
+| 1111000011110000 | 1111111100000000 | 1111000011110000 |
+| 0011000100100011 | 1010101010101010 | 1111000011110000 |
+| 1111101011101110 | 1111111111111111 | 0101010101010101 |
+| 0000111100001111 | 1111000011110000 | 0011110100110101 |
+| 1111111111111111 | 1111000011110000 | 1010010010011010 |
 µùiÀ¦"óTséÎÆm¨/ì
 Æa± sÇE ze.*ÝeË´i¢le
 
