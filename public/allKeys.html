@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>所有密钥</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #keysContainer {
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>所有密钥</h1>
+<div id="keysContainer"></div>
+<button id="backButton">返回</button>
+
+<script>
+    // 获取密钥并显示
+    const keysString = sessionStorage.getItem('allKeys');
+    const keys = keysString ? JSON.parse(keysString) : [];
+
+    const keysContainer = document.getElementById('keysContainer');
+    keys.forEach(key => {
+        const keyP = document.createElement('p');
+        keyP.innerHTML = `密钥: ${key}`;
+        keysContainer.appendChild(keyP);
+    });
+
+    document.getElementById('backButton').addEventListener('click', function() {
+        window.history.back(); // 返回上一页
+    });
+</script>
+
+</body>
+</html>

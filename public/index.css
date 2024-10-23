@@ -1,0 +1,165 @@
+/* 通用样式 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+h1 {
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+}
+
+h2 {
+    font-weight: bold;
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    /* 容器内边距 */
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    /* 新增的左侧间距 */
+    margin-left: 20px;
+    /* 可调整的距离 */
+    margin-right: 20px;
+    /* 可调整的距离 */
+}
+
+.navbar {
+    background-color: #007BFF;
+    /* 导航栏背景色 */
+    padding: 2px;
+    /* 内边距保持不变 */
+    display: flex;
+    /* 使用Flexbox布局 */
+    justify-content: space-between;
+    /* 使链接均匀分布 */
+    border-radius: 5px;
+    /* 添加圆角 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* 添加阴影 */
+}
+
+.navbar a {
+    color: white;
+    /* 链接文本颜色 */
+    text-decoration: none;
+    /* 去掉下划线 */
+    font-weight: bold;
+    /* 加粗文本 */
+    padding: 3px 6px;
+    /* 减小内边距 */
+    border-radius: 3px;
+    /* 圆角 */
+    transition: background-color 0.3s;
+    /* 添加过渡效果 */
+    font-size: 16px;
+    /* 增大字体大小 */
+}
+
+.navbar a:hover {
+    background-color: #0056b3;
+    /* 悬停时的背景色 */
+}
+
+.content {
+    display: none;
+}
+
+.active {
+    display: block;
+}
+
+.group {
+    background-color: #f9f9f9;
+    padding: 100px;
+    margin: 10px 0;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="password"] {
+    width: 60%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+textarea {
+    width: 60%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+h3 {
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+p {
+    font-weight: bold;
+    color: #333;
+    background-color: #e9e9e9;
+    padding: 10px;
+    border-radius: 5px;
+    word-break: break-all;
+}
+
+/* 第1关样式 */
+#level1 h1 {
+    color: #4CAF50;
+}
+
+/* 第2关样式 */
+#level2 h1 {
+    color: #2196F3;
+}
+
+/* 第3关样式 */
+#level3 h1 {
+    color: #FF9800;
+}
+
+/* 第4关样式 */
+#level4 h1 {
+    color: #E91E63;
+}
+
+/* 第5关样式 */
+#level5 h1 {
+    color: #9C27B0;
+}

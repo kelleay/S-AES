@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S-AES 加密解密工具</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <div class="navbar">
+        <button onclick="showLevel(1)">加密</button>
+        <button onclick="showLevel(2)">解密</button>
+        <button onclick="showLevel(3)">二重加密|解密</button>
+        <button onclick="showLevel(4)">三重加密|解密</button>
+        <button onclick="showLevel(5)">破解</button>
+        <button onclick="showLevel(6)">CBC加密|解密</button>
+    </div>
+
+    
+    <div id="level1" class="content" style="display: block;">
+        <h1>普通加密 || 扩展加密</h1>
+        <div class="group">
+            <label for="plaintext1">明文 (普通加密须为16bit二进制数/扩展加密为任意长度字符串):</label>
+            <input type="text" id="plaintext1">
+
+            <label for="key1">密钥 (16位):</label>
+            <input type="text" id="key1" maxlength="16">
+
+            <label>操作:</label>
+            <label for="encrypt1">普通加密</label>
+            <input type="radio" id="encrypt1" name="operation1" value="加密" checked>
+            <label for="enxtendEncrypt1">扩展加密</label>
+            <input type="radio" id="enxtendEncrypt1" name="operation1" value="扩展加密">
+            <label></label>
+            <button onclick="processLevel1()">执行</button>
+            <button onclick="clearInputs(1)">清空</button>
+
+            <h2>结果:</h2>
+            <p id="output1"></p>
+        </div>
+    </div>
+
+    <div id="level2" class="content" style="display:none;">
+        <h1>普通解密 || 扩展解密</h1>
+
+        <div class="group">
+            <label for="cipherText1">密文 (普通解密须为16bit二进制数/扩展解密为任意长度字符串):</label>
+            <input type="text" id="cipherText1">
+
+            <label for="key2">密钥 (16位):</label>
+            <input type="text" id="key2" maxlength="16">
+            <label>操作:</label>
+            <label for="decrypt1">普通解密</label>
+            <input type="radio" id="decrypt1" name="operation2" value="解密" checked>
+            <label for="enxtendDecrypt1">扩展解密</label>
+            <input type="radio" id="enxtendDecrypt1" name="operation2" value="扩展解密">
+            <label></label>
+            <button onclick="processLevel2()">解密</button>
+            <button onclick="clearInputs(2)">清空</button>
+            <h2>结果:</h2>
+            <p id="output2"></p>
+        </div>
+
+        
+    </div>
+
+    <div id="level3" class="content" style="display:none;">
+        <h1>二重加密 || 解密</h1>
+
+        <div class="group">
+            <h2>双重加密</h2>
+            <label for="plaintext2">输入明文 (普通加密须为16bit二进制数/扩展加密为任意长度字符串):</label>
+            <input type="text" id="plaintext2">
+
+            <label for="key3">密钥 (32位):</label>
+            <input type="text" id="key3" maxlength="32">
+            <label>操作:</label>
+            <label for="encrypt2">普通加密</label>
+            <input type="radio" id="encrypt2" name="operation3" value="加密" checked>
+            <label for="enxtendEncrypt2">扩展加密</label>
+            <input type="radio" id="enxtendEncrypt2" name="operation3" value="扩展加密">
+            <label></label>
+            <button onclick="doubleEncrypt()">双重加密</button>
+            <h2>结果</h2>
+            <p id="output3"></p>
+        </div>
+
+        <div class="group">
+            <h2>双重解密</h2>
+            <label for="cipherText2">输入密文 (普通解密须为16bit二进制数/扩展解密为任意长度字符串):</label>
+            <input type="text" id="cipherText2">
+
+            <label for="key4">密钥 (32位):</label>
+            <input type="text" id="key4" maxlength="32">
+            <label>操作:</label>
+            <label for="decrypt2">普通解密</label>
+            <input type="radio" id="decrypt2" name="operation4" value="解密" checked>
+            <label for="enxtendDecrypt2">扩展解密</label>
+            <input type="radio" id="enxtendDecrypt2" name="operation4" value="扩展解密">
+            <label></label>
+            <button onclick="doubleDecrypt()">双重解密</button>
+            <h2>结果</h2>
+            <p id="output4"></p>
+        </div>
+
+        <button onclick="clearInputs(3)">清空</button>
+    </div>
+
+    <div id="level4" class="content" style="display:none;">
+        <h1>三重加密 || 解密</h1>
+
+        <div class="group">
+            <h2>三重加密</h2>
+            <label for="plaintext3">输入明文 (普通加密须为16bit二进制数/扩展加密为任意长度字符串):</label>
+            <input type="text" id="plaintext3">
+
+            <label for="key5">密钥 (48位):</label>
+            <input type="text" id="key5" maxlength="48">
+            <label>操作:</label>
+            <label for="encrypt3">普通加密</label>
+            <input type="radio" id="encrypt3" name="operation5" value="加密" checked>
+            <label for="enxtendEncrypt3">扩展加密</label>
+            <input type="radio" id="enxtendEncrypt3" name="operation5" value="扩展加密">
+            <label></label>
+            <button onclick="tripleEncrypt()">三重加密</button>
+            <h2>结果</h2>
+            <p id="output5"></p>
+        </div>
+
+        <div class="group">
+            <h2>三重解密</h2>
+            <label for="cipherText3">输入密文 (普通解密须为16bit二进制数/扩展解密为任意长度字符串):</label>
+            <input type="text" id="cipherText3">
+            <label for="key6">密钥 (48位):</label>
+            <input type="text" id="key6" maxlength="48">
+            <label>操作:</label>
+            <label for="decrypt3">普通解密</label>
+            <input type="radio" id="decrypt3" name="operation6" value="解密" checked>
+            <label for="enxtendDecrypt3">扩展解密</label>
+            <input type="radio" id="enxtendDecrypt3" name="operation6" value="扩展解密">
+            <label></label>
+            <button onclick="tripleDecrypt()">三重解密</button>
+            <h2>结果</h2>
+            <p id="output6"></p>
+        </div>
+        <label></label>
+        <button onclick="clearInputs(4)">清空</button>
+    </div>
+
+
+    <div id="level5" class="content" style="display:none;">
+        <h1>破解密钥 Key(K1 + K2)</h1>
+        <h1>明文密文需要同时为16bit二进制数据 或 明文密文为长度相同(或相差1个单位)的字符串</h1>
+        <div class="group" style="margin-top: 0; padding-top: 20px;">
+            <div style="margin: 0px 20px">
+                <button onclick="addPair()" >添加明文密文对</button>
+                <button onclick="crack()" style="margin-left: 20px;">开始破解</button>
+            </div>
+            
+            <div id="pairsContainer"></div>
+            <div id="crackResult"></div>
+        </div>
+
+    </div>
+
+    <div id="level6" class="content" style="display: none;">
+        <h1>CBC加密 || CBC解密</h1>
+        <div class="group">
+            <label for="plaintext4">明文(任意长度字符串): </label>
+            <input type="text" id="plaintext4">
+
+            <label for="key7">密钥 (16位):</label>
+            <input type="text" id="key7" maxlength="16">
+            <label for="IV1">初始向量IV (16位):</label>
+            <input type="text" id="IV1" maxlength="16">
+            <br>
+            <button onclick="cbcEncrypt()">加密</button>
+            <button onclick="clearInputs(6)">清空</button>
+            <h2>结果:</h2>
+            <p id="output7"></p>
+        </div>
+        <div class="group">
+            <label for="cipherText4">密文(任意长度字符串): </label>
+            <input type="text" id="cipherText4">
+
+            <label for="key8">密钥 (16位):</label>
+            <input type="text" id="key8" maxlength="16">
+            <label for="IV2">初始向量IV (16位):</label>
+            <input type="text" id="IV2" maxlength="16">
+            <br>
+            <button onclick="cbcDecrypt()">解密</button>
+            <button onclick="clearInputs(6)">清空</button>
+            <h2>结果:</h2>
+            <p id="output8"></p>
+        </div>
+    </div>
+
+</body>
+
+</html>
