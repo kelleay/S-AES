@@ -4,7 +4,18 @@ This project implements the Simple-AES algorithm.The algorithm flow is shown in 
 <img src="https://github.com/kelleay/S-AES/blob/master/images/%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B%E5%9B%BE.png" style="width:700px; height: 800px">
 
 ## Table of Contents
-
+- [Introduction](#introduction)
+- [Dependencies](#dependencies)
+- [Installation](#installation)
+- [Run](#run)
+- [Project Structure](#project-structure)
+- [API Documentation](#api-documentation)
+- [Report](#report)
+  - [The First Pass](#the-first-pass)
+  - [The Second Pass](#the-second-pass)
+  - [The Third Pass](#the-third-pass)
+  - [The Fourth Pass](#the-fourth-pass)
+  - [The Fifth Pass](#the-fifth-pass)
 
 ## Introduction
 This project implements the S-AES encryption and decryption algorithm, which can encrypt a 16-bit binary plaintext and a key to produce a ciphertext by inputting them; at the same time, this project also supports encrypting and decrypting any length of character string plaintext (converted to ASCII code); the project also supports multiple encryption and decryption methods, such as double encryption and triple encryption; the project also implements a method to break the cipher by means of a meet-in-the-middle attack, which requires inputting any pair of plaintext and ciphertext; the project also implements encrypting longer plaintext messages in CBC (cipher block chaining) mode.
@@ -35,6 +46,7 @@ The structure of the project is shown below：
     - `index.css`: Stylesheets for the project, defining the visual appearance.
     - `main.js`: JavaScript files that provide interactivity and dynamic features.
     - `allKeys.html`: A page that displays all keys
+- `images`: some images of report
 - `route-handle/AES/`: Provides a handler for routes
     - `AES.js`: Contains the primary implementations of algorithms.
     - `service.js`: Provides utility functions commonly used in the project.
@@ -46,6 +58,26 @@ The structure of the project is shown below：
 - `app.js`: The main application file that initializes the Flask app, handles routing, and serves as the entry point for
   the application.
 - `README.md`: Provides an overview of the project.
+
+## API Documentation
+
+| Endpoint        | Method | Request Body                                                                                                     | Response                                          |
+|------------------|--------|------------------------------------------------------------------------------------------------------------------|---------------------------------------------------|
+| `/yuanshen/encrypt`       | POST   | ```json { "plainText": "Text to be encrypted", "Key": "Encryption key" } ```                                  | ```json { "data": "Encrypted ciphertext" } ```   |
+| `/yuanshen/exencrypt`     | POST   | Same as `/yuanshen/encrypt`                                                                                              | Same as `/yuanshen/encrypt`                               |
+| `/yuanshen/decrypt`       | POST   | ```json { "cipherText": "Text to be decrypted", "Key": "Decryption key" } ```                                 | ```json { "data": "Decrypted plaintext" } ```    |
+| `/yuanshen/exdecrypt`     | POST   | Same as `/yuanshen/decrypt`                                                                                              | Same as `/yuanshen/decrypt`                               |
+| `/yuanshen/dencrypt`      | POST   | Same as `/yuanshen/decrypt`                                                                                              | Same as `/yuanshen/decrypt`                               |
+| `/yuanshen/dexencrypt`    | POST   | Same as `/yuanshen/decrypt`                                                                                              | Same as `/yuanshen/decrypt`                               |
+| `/yuanshen/ddecrypt`      | POST   | Same as `/yuanshen/decrypt`                                                                                              | Same as `/yuanshen/decrypt`                               |
+| `/yuanshen/dexdecrypt`    | POST   | Same as `/yuanshen/decrypt`                                                                                              | Same as `/yuanshen/decrypt`                               |
+| `/yuanshen/tencrypt`      | POST   | Same as `/yuanshen/decrypt`                                                                                              | Same as `/yuanshen/decrypt`                               |
+| `/yuanshen/texencrypt`    | POST   | Same as `/yuanshen/decrypt`                                                                                              | Same as `/yuanshen/decrypt`                               |
+| `/yuanshen/tdecrypt`      | POST   | Same as `/yuanshen/decrypt`                                                                                              | Same as `/yuanshen/decrypt`                               |
+| `/yuanshen/texdecrypt`    | POST   | Same as `/yuanshen/decrypt`                                                                                              | Same as `/yuanshen/decrypt`                               |
+| `/yuanshen/crack`         | POST   | ```json { "plains": ["Array of plaintexts"], "ciphers": ["Array of ciphertexts"] } ```                        | ```json { "keys": ["Possible array of keys"], "len": "Length required for cracking", "time": "Time taken for cracking" } ``` |
+| `/yuanshen/cbcencrypt`    | POST   | ```json { "plainText": "Text to be encrypted", "Key": "Encryption key", "IV": "Initialization vector" } ```  | ```json { "data": "Encrypted ciphertext" } ```   |
+| `/yuanshen/cbcdecrypt`    | POST   | Same as `/yuanshen/cbcencrypt`                                                                                           | ```json { "data": "Decrypted plaintext" } ```    |
 
 ## Report
 The following figure shows the main interface of the client:
@@ -89,9 +121,69 @@ There are two groups of A and B students (select the same key K); Then the progr
 
 The results showed that the students in group A and Group B had the same results
 
+#### The third Pass
+To extend its usefulness, the data input of the encryption algorithm can be an ASII-encoded string (grouped into 2 Bytes), and the corresponding output can be an ACII string (most likely garbled).
 
+- The extended encryption result test is shown in the figure below:
+  <img src="images/扩展加密.png" />
+- The expanded decryption result test is shown in the figure below:
+  <img src="images/扩展解密.png" />
 
-µùiÀ¦"óTséÎÆm¨/ì
-Æa± sÇE ze.*ÝeË´i¢le
+#### The fourth Pass
+1. Double Encryption
+Extending the S-AES algorithm with double encryption, the packet length is still 16 bits, but the key length is 32 bits.
+
+- The result of double encryption is shown below:
+  <img src="images/双重加密.png" />
+- The result of double decryption is shown below:
+  <img src="images/双重解密.png" />
+- I also extended the double encryption and decryption, as shown in the figure below:
+  <img src="images/扩展双重加密.png" /> <br>
+  <img src="images/扩展双重解密.png" />
+<br>
+
+3. Intermediate Encounter Attack
+Assuming you find one or more plain and ciphertext pairs using the same Key, try using the meet-in-the-middle attack method to find the correct key Key(K1+K2).
+
+- First, I entered a pair of plaintext ciphertext to crack, and found more than 40,000 keys, as shown in the figure:
+  <img src="images/破解1-1.png" />
+- Then, If there are more than ten keys, I will generate a link to see all the possible keys:
+  <img src="images/破解1-2.png" />
+- The result is shown in the figure:
+  <img src="images/破解1-3.png" />
+<br>
+- At this time, I used two pairs of clear ciphertext to crack, and only two keys were found, as shown in the figure:
+  <img src="images/破解2.png" />
+<br>
+These keys were verified to be correct
+
+<br>
+5. Triple Encryption
+The S-AES algorithm is extended by triple encryption, and one of the following two modes is selected:<br>
+(1) Triple encryption and decryption according to the mode of 32 bits Key(K1+K2) <br>
+(2) Use 48bits(K1+K2+K3) mode for triple encryption and decryption.
+
+- I chose the second type of encryption: (2) Use 48bits(K1+K2+K3) mode for triple encryption and decryption.
+- The result of triple encryption is shown below:
+  <img src="images/三重加密.png" />
+- The result of triple decryption is shown below:
+  <img src="images/三重解密.png" />
+- I also extended the triple encryption and decryption, as shown in the figure below:
+  <img src="images/扩展三重加密.png" /> <br>
+  <img src="images/扩展三重解密.png" />
+<br>
+
+#### The fifth Pass
+Based on S-AES algorithm, long plaintext messages are encrypted using Cipher Block chain (CBC) mode. Note that the initial vector (16 bits) is generated and needs to be shared by both encryption and decryption parties. <br>
+If the ciphertext is encrypted in CBC mode and attempts to replace or modify the ciphertext group, then decrypt it, compare the decryption results before and after the ciphertext is modified.
+
+- CBC encryption is shown in the figure: 
+  <img src="images/cbc加密.png" />
+- The following figure shows how to decrypt the ciphertext without replacing it:
+  <img src="images/cbc解密.png" />
+- The following figure shows the replacement decryption of the ciphertext: Replace ciphertext µùiÀ¦"óTséÎÆm¨/ì  with  AµùBÀ¦"CTséÎDm¨/ì
+  <img src="images/cbc替换解密.png" />
+<br>
+In general, the result of decryption after substitution is quite different from that of plaintext
 
 
